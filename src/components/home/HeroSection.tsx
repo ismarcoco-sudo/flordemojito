@@ -24,7 +24,7 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-primary/80 z-10 mix-blend-multiply" />
         <img 
           src="/images/banner.jpg" 
-          alt="Flor de Mojito Banner" 
+          alt="Bases de mojito artesanal Flor de Mojito con ingredientes frescos" 
           className="w-full h-full object-cover"
         />
       </div>

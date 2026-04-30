@@ -1,5 +1,15 @@
 import React from 'react';
 import { ProductCard } from '@/components/shop/ProductCard';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Tienda Online | Bases para Mojito 100% Naturales',
+  description: 'Compra online nuestras bases artesanales para mojito. 11 sabores disponibles: Clásico, Fresa, Mango, Coco y más. Rinde +30 cócteles por botella. Envío gratis +60€.',
+  openGraph: {
+    title: 'Tienda Flor de Mojito | El auténtico sabor cubano',
+    description: 'Bases concentradas naturales para cócteles. Elige tu sabor favorito y prepáralo en segundos.',
+  }
+};
 
 const products = [
   { id: '1', name: 'Clásico', price: 30.0, image: '/images/FlorMojito-Clasico.jpg', desc: 'El rey indiscutible con lima fresca y menta.', type: 'botella' as const },

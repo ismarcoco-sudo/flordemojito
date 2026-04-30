@@ -43,7 +43,7 @@ export function ProductsSection() {
                   <div className="absolute inset-0 bg-primary/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity z-10" />
                   <img 
                     src={flavor.image} 
-                    alt={`Flor de Mojito ${flavor.name}`} 
+                    alt={`Base artesanal Flor de Mojito sabor ${flavor.name} - 100% Natural`} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   {idx === 0 && (
@@ -102,7 +102,7 @@ export function ProductsSection() {
             <div className="relative min-h-[300px] md:min-h-full">
               <img 
                 src="/images/latas.jpg" 
-                alt="Nuevas Latas RTD Flor de Mojito" 
+                alt="Nuevas latas transparentes Ready-to-Drink Flor de Mojito, mojito artesanal listo para beber" 
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </div>

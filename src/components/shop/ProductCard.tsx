@@ -50,7 +50,7 @@ export function ProductCard({ product }: { product: ProductProps }) {
 
         <img 
           src={product.image} 
-          alt={product.name}
+          alt={`Botella de base para mojito sabor ${product.name} - Flor de Mojito`}
           className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
         />
       </div>

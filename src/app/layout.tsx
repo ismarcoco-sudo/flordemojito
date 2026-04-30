@@ -24,20 +24,25 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Flor de Mojito | El mojito perfecto en 30 segundos',
-  description: 'Bases 100% naturales para preparar cócteles perfectos en 30 segundos. Sin alcohol. Sin aditivos. Puro sabor cubano.',
-  keywords: ['mojito', 'cócteles', 'sin alcohol', 'base para mojito', 'Flor de Mojito', 'España', 'eventos', 'HORECA'],
+  title: {
+    default: 'Flor de Mojito | El auténtico mojito cubano en 30 segundos',
+    template: '%s | Flor de Mojito'
+  },
+  description: 'Descubre Flor de Mojito: bases 100% naturales para preparar el mojito perfecto en casa o en tu bar en 30 segundos. Sin alcohol, sin conservantes y con el sabor original de Cuba.',
+  keywords: ['mojito artesanal', 'base mojito natural', 'cócteles premium', 'mojito cubano', 'Flor de Mojito España', 'mixología fácil'],
+  authors: [{ name: 'Juan Carlos Rill Pérez' }],
+  creator: 'Flor de Mojito',
   openGraph: {
-    title: 'Flor de Mojito | El mojito perfecto en 30 segundos',
-    description: 'Bases 100% naturales para preparar cócteles perfectos en 30 segundos. Sin alcohol. Sin aditivos. Puro sabor cubano.',
+    title: 'Flor de Mojito | El auténtico mojito cubano en 30 segundos',
+    description: 'Bases 100% naturales para preparar cócteles perfectos. Sin alcohol, sin aditivos. Puro sabor cubano directo a tu copa.',
     url: 'https://flordemojito.es',
     siteName: 'Flor de Mojito',
     images: [
       {
-        url: 'https://flordemojito.es/images/FlorMojito-Clasico.jpg',
+        url: '/images/banner.jpg',
         width: 1200,
         height: 630,
-        alt: 'Flor de Mojito - Base clásica',
+        alt: 'Flor de Mojito - Experiencia Premium',
       },
     ],
     locale: 'es_ES',
@@ -45,27 +50,69 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Flor de Mojito | El mojito perfecto en 30 segundos',
-    description: 'Bases 100% naturales para preparar cócteles perfectos en 30 segundos.',
+    title: 'Flor de Mojito | El auténtico mojito cubano',
+    description: 'Bases 100% naturales para preparar el mojito perfecto en 30 segundos.',
+    images: ['/images/banner.jpg'],
   },
   alternates: {
     canonical: 'https://flordemojito.es',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': 'LocalBusiness',
   name: 'Flor de Mojito',
+  image: 'https://flordemojito.es/images/banner.jpg',
+  '@id': 'https://flordemojito.es',
   url: 'https://flordemojito.es',
-  description: 'Bases 100% naturales para preparar cócteles perfectos en 30 segundos.',
-  foundingDate: '2024',
-  founders: [
-    {
-      '@type': 'Person',
-      name: 'Juan Carlos Rill Pérez'
-    }
-  ]
+  telephone: '+34000000000', // Actualizar con número real si existe
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '',
+    addressLocality: 'Madrid',
+    addressRegion: 'Comunidad de Madrid',
+    postalCode: '28000',
+    addressCountry: 'ES'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 40.416775,
+    longitude: -3.703790
+  },
+  description: 'Bases 100% naturales para preparar el mojito perfecto en 30 segundos. Sin alcohol y sin aditivos.',
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ],
+    opens: '00:00',
+    closes: '23:59'
+  },
+  sameAs: [
+    'https://www.instagram.com/flordemojito'
+  ],
+  founder: {
+    '@type': 'Person',
+    name: 'Juan Carlos Rill Pérez'
+  }
 };
 
 export default function RootLayout({

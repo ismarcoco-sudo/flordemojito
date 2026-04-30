@@ -60,7 +60,7 @@ export function HistorySection() {
             <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl relative z-10">
               <img 
                 src="/images/juancarlos.jpg" 
-                alt="Historia de Flor de Mojito" 
+                alt="Juan Carlos Rill Pérez, fundador de Flor de Mojito, con su receta original de mojito cubano" 
                 className="w-full h-full object-cover"
               />
             </div>
