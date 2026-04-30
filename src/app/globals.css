@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@plugin 'tailwindcss-animate';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-primary: #1B5E20;
+  --color-secondary: #A5D6A7;
+  --color-accent: #FFC107;
+  --color-accent-alt: #FF7043;
+  --color-bg-light: #FAFFF5;
+  --color-bg-dark: #0D2818;
+  --color-text-primary: #1A1A1A;
+  --color-text-light: #FFFFFF;
+  --color-text-muted: #6B7B6E;
+  --color-border: #C8E6C9;
+  --color-error: #D32F2F;
+  --color-success: #388E3C;
+
+  --font-sans: var(--font-inter), sans-serif;
+  --font-serif: var(--font-playfair), serif;
+  --font-accent: var(--font-dm-sans), sans-serif;
+
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-bg-light text-text-primary tracking-tight font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+
+  /* Scrollbar suave */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/30 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/50;
+  }
+}
+
