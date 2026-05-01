@@ -101,6 +101,8 @@ export default function RootLayout({
   return (
     <html lang="es" className="scroll-smooth">
       <head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/logo.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

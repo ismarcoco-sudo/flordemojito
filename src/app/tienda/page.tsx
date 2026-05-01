@@ -17,12 +17,12 @@ const products = [
   { id: '3', name: 'Frambuesa', price: 30.0, image: '/images/FlorMojito-Frambuesa.jpg', desc: 'Toque silvestre y elegante.', type: 'botella' as const },
   { id: '4', name: 'Mango', price: 30.0, image: '/images/FlorMojito-Mango.jpg', desc: 'Trópico puro en cada sorbo.', type: 'botella' as const },
   { id: '5', name: 'Coco', price: 30.0, image: '/images/FlorMojito-Coco.jpg', desc: 'Suavidad caribeña incomparable.', type: 'botella' as const },
-  { id: '6', name: 'Piña', price: 30.0, image: '/images/FlorMojito-Piña.jpg', desc: 'Refrescante y tropical.', type: 'botella' as const },
-  { id: '7', name: 'Maracuyá', price: 30.0, image: '/images/FlorMojito-Fruta de la Pasion.jpg', desc: 'Pasión exótica y acidez balanceada.', type: 'botella' as const },
-  { id: '8', name: 'Jengibre', price: 30.0, image: '/images/FlorMojito-Gengibre.jpg', desc: 'Un toque picante y sofisticado.', type: 'botella' as const },
-  { id: '9', name: 'Pepino', price: 30.0, image: '/images/FlorMojito-Concombre.jpg', desc: 'Frescura extrema para días de calor.', type: 'botella' as const },
-  { id: '10', name: 'Albahaca', price: 30.0, image: '/images/FlorMojito-Basilic.jpg', desc: 'Aroma herbal que sorprende.', type: 'botella' as const },
-  { id: '11', name: 'Remolacha', price: 30.0, image: '/images/FlorMojito-Beterave.jpg', desc: 'El toque terroso y color intenso.', type: 'botella' as const },
+  { id: '6', name: 'Piña', price: 30.0, image: '/images/pina.jpg', desc: 'Refrescante y tropical.', type: 'botella' as const },
+  { id: '7', name: 'Maracuyá', price: 30.0, image: '/images/pasion.jpg', desc: 'Pasión exótica y acidez balanceada.', type: 'botella' as const },
+  { id: '8', name: 'Jengibre', price: 30.0, image: '/images/gengibre.jpg', desc: 'Un toque picante y sofisticado.', type: 'botella' as const },
+  { id: '9', name: 'Pepino', price: 30.0, image: '/images/pepino.jpg', desc: 'Frescura extrema para días de calor.', type: 'botella' as const },
+  { id: '10', name: 'Albahaca', price: 30.0, image: '/images/albahaca.jpg', desc: 'Aroma herbal que sorprende.', type: 'botella' as const },
+  { id: '11', name: 'Remolacha', price: 30.0, image: '/images/remolacha.jpg', desc: 'El toque terroso y color intenso.', type: 'botella' as const },
 ];
 
 export default function TiendaPage() {

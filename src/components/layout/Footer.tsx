@@ -13,7 +13,7 @@ export function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <div className="relative w-12 h-12 overflow-hidden rounded-full border border-bg-light/20 bg-white p-1">
                 <Image 
-                  src="/images/logo.png" 
+                  src="/logo.png" 
                   alt="Flor de Mojito Logo" 
                   fill
                   className="object-contain"
@@ -85,7 +85,7 @@ export function Footer() {
           <div className="flex items-center gap-4">
             <div className="relative w-12 h-12 overflow-hidden rounded-full border border-bg-light/10 bg-white p-1 grayscale opacity-50">
                 <Image 
-                  src="/images/logo.png" 
+                  src="/logo.png" 
                   alt="Flor de Mojito Logo Footer" 
                   fill
                   className="object-contain"

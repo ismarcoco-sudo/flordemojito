@@ -5,12 +5,13 @@ import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const flavors = [
   { name: 'Clásico', desc: 'El rey indiscutible', image: '/images/FlorMojito-Clasico.jpg', color: 'bg-[#8BC34A]' },
   { name: 'Fresa', desc: 'Dulce y vibrante', image: '/images/FlorMojito-Fraise.jpg', color: 'bg-[#E53935]' },
   { name: 'Mango', desc: 'Trópico en cada sorbo', image: '/images/FlorMojito-Mango.jpg', color: 'bg-[#FFB300]' },
-  { name: 'Maracuyá', desc: 'Pasión exótica', image: '/images/FlorMojito-Pasion.jpg', color: 'bg-[#FDD835]' },
+  { name: 'Maracuyá', desc: 'Pasión exótica', image: '/images/pasion.jpg', color: 'bg-[#FDD835]' },
 ];
 
 export function ProductsSection() {
@@ -39,12 +40,14 @@ export function ProductsSection() {
               className="group cursor-pointer perspective-1000"
             >
               <div className="relative rounded-2xl overflow-hidden bg-bg-light shadow-md hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2">
-                <div className="aspect-[3/4] relative overflow-hidden">
+                <div className="aspect-[3/4] relative overflow-hidden flex items-center justify-center p-6 bg-white">
                   <div className="absolute inset-0 bg-primary/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity z-10" />
-                  <img 
+                  <Image 
                     src={flavor.image} 
-                    alt={`Base artesanal Flor de Mojito sabor ${flavor.name} - 100% Natural`} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    alt={`Base artesanal Flor de Mojito sabor ${flavor.name} - 100% Natural`}
+                    width={400}
+                    height={533}
+                    className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
                   />
                   {idx === 0 && (
                     <Badge variant="accent" className="absolute top-4 left-4 z-20">Más Vendido</Badge>
