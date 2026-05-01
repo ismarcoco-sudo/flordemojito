@@ -3,8 +3,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export function HeroSection() {
   const scrollToForm = () => {
@@ -19,28 +19,21 @@ export function HeroSection() {
 
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-      {/* Video Background Placeholder */}
+      {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-primary/80 z-10 mix-blend-multiply" />
-        <img 
+        <Image 
           src="/images/banner.jpg" 
           alt="Bases de mojito artesanal Flor de Mojito con ingredientes frescos" 
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
         />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 flex flex-col items-center text-center text-text-light pt-20">
         
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-6"
-        >
-          <Badge variant="accent" className="mb-6 mx-auto bg-bg-light text-primary border-none shadow-lg">
-            🇫🇷 Fabricación artesanal francesa | 🇨🇺 Receta cubana original
-          </Badge>
-        </motion.div>
+        {/* Badge removed as requested */}
 
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
@@ -48,7 +41,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-5xl md:text-7xl font-serif font-bold mb-6 max-w-4xl drop-shadow-lg leading-tight"
         >
-          La revolución del <span className="text-secondary italic">mojito artesanal</span> llega a España
+          Comprar el mejor <span className="text-secondary italic">mojito artesanal</span> de España
         </motion.h1>
 
         <motion.p 

@@ -6,6 +6,7 @@ import { ShoppingBag, Star, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/hooks/use-cart';
+import Image from 'next/image';
 
 export interface ProductProps {
   id: string;
@@ -48,9 +49,11 @@ export function ProductCard({ product }: { product: ProductProps }) {
           <Star className="w-4 h-4 fill-current" />
         </div>
 
-        <img 
+        <Image 
           src={product.image} 
           alt={`Botella de base para mojito sabor ${product.name} - Flor de Mojito`}
+          width={400}
+          height={500}
           className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
         />
       </div>

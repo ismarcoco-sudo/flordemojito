@@ -81,16 +81,37 @@ export function CartSidebar() {
             </div>
 
             <div className="border-t border-border p-6 bg-bg-light">
-              <div className="flex justify-between mb-4 font-bold text-lg text-primary">
+              <div className="flex justify-between mb-2 font-bold text-lg text-primary">
                 <span>Total</span>
                 <span>{total.toFixed(2)} €</span>
               </div>
-              <p className="text-xs text-text-muted mb-4 text-center">
-                {total >= 60 ? '¡Envío gratuito aplicado!' : `Te faltan ${(60 - total).toFixed(2)}€ para envío gratis`}
-              </p>
-              <Button className="w-full" disabled={items.length === 0} size="lg">
-                Finalizar Compra
-              </Button>
+              
+              <div className="flex flex-col gap-3 mb-6">
+                <div className="flex items-center gap-2 text-xs text-text-muted">
+                  <svg className="w-4 h-4 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Envíos con <a href="https://novapost.com/" target="_blank" rel="noreferrer" className="font-bold underline hover:text-primary">Nova Post</a>
+                </div>
+                <p className="text-xs text-text-muted text-center px-4 py-2 bg-accent/10 rounded-lg">
+                  {total >= 60 ? '¡Envío gratuito aplicado!' : `Te faltan ${(60 - total).toFixed(2)}€ para envío gratis`}
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                <Button className="w-full" disabled={items.length === 0} size="lg">
+                  Finalizar Compra
+                </Button>
+                
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-[10px] uppercase tracking-widest text-text-muted font-bold">Pagos Seguros</span>
+                  <div className="flex items-center gap-4 opacity-60 grayscale hover:grayscale-0 transition-all">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" alt="Stripe" className="h-4" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-4" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Payoneer_logo.svg" alt="Payoneer" className="h-4" />
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         </>

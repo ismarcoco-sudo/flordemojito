@@ -10,7 +10,7 @@ const flavors = [
   { name: 'Clásico', desc: 'El rey indiscutible', image: '/images/FlorMojito-Clasico.jpg', color: 'bg-[#8BC34A]' },
   { name: 'Fresa', desc: 'Dulce y vibrante', image: '/images/FlorMojito-Fraise.jpg', color: 'bg-[#E53935]' },
   { name: 'Mango', desc: 'Trópico en cada sorbo', image: '/images/FlorMojito-Mango.jpg', color: 'bg-[#FFB300]' },
-  { name: 'Maracuyá', desc: 'Pasión exótica', image: '/images/FlorMojito-Fruta de la Pasion.jpg', color: 'bg-[#FDD835]' },
+  { name: 'Maracuyá', desc: 'Pasión exótica', image: '/images/FlorMojito-Pasion.jpg', color: 'bg-[#FDD835]' },
 ];
 
 export function ProductsSection() {

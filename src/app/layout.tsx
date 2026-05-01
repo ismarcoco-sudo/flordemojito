@@ -4,6 +4,7 @@ import './globals.css';
 import { NavBar } from '@/components/layout/NavBar';
 import { Footer } from '@/components/layout/Footer';
 import { CartSidebar } from '@/components/cart/CartSidebar';
+import { CookieBanner } from '@/components/layout/CookieBanner';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -24,17 +25,18 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://flordemojito.es'),
   title: {
     default: 'Flor de Mojito | El auténtico mojito cubano en 30 segundos',
     template: '%s | Flor de Mojito'
   },
-  description: 'Descubre Flor de Mojito: bases 100% naturales para preparar el mojito perfecto en casa o en tu bar en 30 segundos. Sin alcohol, sin conservantes y con el sabor original de Cuba.',
+  description: 'Bases 100% naturales para el mojito perfecto en 30 segundos. Sin alcohol ni conservantes. Puro sabor cubano. Envío a toda España.',
   keywords: ['mojito artesanal', 'base mojito natural', 'cócteles premium', 'mojito cubano', 'Flor de Mojito España', 'mixología fácil'],
   authors: [{ name: 'Juan Carlos Rill Pérez' }],
   creator: 'Flor de Mojito',
   openGraph: {
     title: 'Flor de Mojito | El auténtico mojito cubano en 30 segundos',
-    description: 'Bases 100% naturales para preparar cócteles perfectos. Sin alcohol, sin aditivos. Puro sabor cubano directo a tu copa.',
+    description: 'Bases 100% naturales para el mojito perfecto en 30 segundos. Sin alcohol ni conservantes. Puro sabor cubano. Envío a toda España.',
     url: 'https://flordemojito.es',
     siteName: 'Flor de Mojito',
     images: [
@@ -51,7 +53,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Flor de Mojito | El auténtico mojito cubano',
-    description: 'Bases 100% naturales para preparar el mojito perfecto en 30 segundos.',
+    description: 'Bases 100% naturales para el mojito perfecto en 30 segundos. Sin alcohol ni conservantes. Puro sabor cubano. Envío a toda España.',
     images: ['/images/banner.jpg'],
   },
   alternates: {
@@ -72,42 +74,18 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
+  '@type': 'Organization',
   name: 'Flor de Mojito',
   image: 'https://flordemojito.es/images/banner.jpg',
   '@id': 'https://flordemojito.es',
   url: 'https://flordemojito.es',
-  telephone: '+34000000000', // Actualizar con número real si existe
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: '',
-    addressLocality: 'Madrid',
-    addressRegion: 'Comunidad de Madrid',
-    postalCode: '28000',
-    addressCountry: 'ES'
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 40.416775,
-    longitude: -3.703790
-  },
   description: 'Bases 100% naturales para preparar el mojito perfecto en 30 segundos. Sin alcohol y sin aditivos.',
-  openingHoursSpecification: {
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday'
-    ],
-    opens: '00:00',
-    closes: '23:59'
-  },
   sameAs: [
-    'https://www.instagram.com/flordemojito'
+    'https://www.instagram.com/flordemojito_es/',
+    'https://www.facebook.com/profile.php?id=61560629620932',
+    'https://www.tiktok.com/@flordemojito.es',
+    'https://www.youtube.com/@FlordeMojitoEspa%C3%B1a',
+    'https://www.linkedin.com/company/113251472/'
   ],
   founder: {
     '@type': 'Person',
@@ -135,6 +113,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <CartSidebar />
+        <CookieBanner />
       </body>
     </html>
   );

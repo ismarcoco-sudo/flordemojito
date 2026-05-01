@@ -2,6 +2,16 @@ import React from 'react';
 import { ReviewCard } from '@/components/reviews/ReviewCard';
 import { ReviewForm } from '@/components/reviews/ReviewForm';
 import { Star } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Opiniones y Reseñas | Flor de Mojito - 4.8/5 Estrellas',
+  description: 'Lee las opiniones de nuestros clientes sobre Flor de Mojito. Más de 200 reseñas verificadas de particulares y profesionales de la hostelería en toda España.',
+  openGraph: {
+    title: 'Reseñas Verificadas - Flor de Mojito',
+    description: 'Nuestros clientes lo confirman: el mojito perfecto en 30 segundos.',
+  }
+};
 
 const mockReviews = [
   {
@@ -51,13 +61,51 @@ const mockReviews = [
 ];
 
 export default function ResenasPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    'name': 'Flor de Mojito',
+    'aggregateRating': {
+      '@type': 'AggregateRating',
+      'ratingValue': '4.8',
+      'reviewCount': '214'
+    }
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Inicio',
+        'item': 'https://flordemojito.es'
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Reseñas',
+        'item': 'https://flordemojito.es/resenas'
+      }
+    ]
+  };
+
   return (
     <div className="bg-bg-light min-h-screen pb-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Header */}
       <div className="bg-bg-dark text-text-light pt-24 pb-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4">
-            Lo que dicen de nosotros
+            Reseñas y Opiniones Reales
           </h1>
           
           <div className="flex flex-col items-center justify-center gap-2 mt-8">

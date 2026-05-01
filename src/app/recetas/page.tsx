@@ -27,9 +27,9 @@ export default function RecetasPage() {
     <div className="bg-bg-light min-h-screen pb-24">
       <div className="bg-primary text-text-light pt-24 pb-16">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4">Tu bar en casa</h1>
+          <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4">Cómo hacer mojito: Recetas fáciles y sin alcohol</h1>
           <p className="text-lg max-w-2xl mx-auto text-text-light/80">
-            Descubre cócteles para cada momento. Con y sin alcohol, listos en segundos.
+            Aprende a preparar el mojito perfecto en casa. Cócteles refrescantes con y sin alcohol, listos en segundos.
           </p>
         </div>
       </div>

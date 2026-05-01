@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import confetti from 'canvas-confetti';
+import { MapPin } from 'lucide-react';
 
 const leadSchema = z.object({
   name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
@@ -16,7 +17,8 @@ const leadSchema = z.object({
   type: z.enum(['Particular', 'Profesional HORECA', 'Distribuidor', 'Prensa'], {
     message: 'Selecciona un perfil',
   }),
-  favoriteFlavor: z.string().min(1, 'Selecciona tu sabor favorito'),
+  favoriteFlavors: z.array(z.string()).min(1, 'Selecciona al menos un sabor'),
+  deliveryLocation: z.string().min(1, 'La ubicación de entrega es obligatoria'),
   rgpd: z.boolean().refine(val => val === true, 'Debes aceptar la política de privacidad'),
 });
 
@@ -30,11 +32,20 @@ export function LeadForm() {
   const { register, handleSubmit, setValue, watch, formState: { errors, isSubmitting } } = useForm<LeadFormValues>({
     resolver: zodResolver(leadSchema),
     defaultValues: {
-      favoriteFlavor: '',
+      favoriteFlavors: [],
+      deliveryLocation: '',
     }
   });
 
-  const selectedFlavor = watch('favoriteFlavor');
+  const selectedFlavors = watch('favoriteFlavors') || [];
+
+  const toggleFlavor = (flavor: string) => {
+    const current = selectedFlavors;
+    const next = current.includes(flavor)
+      ? current.filter(f => f !== flavor)
+      : [...current, flavor];
+    setValue('favoriteFlavors', next, { shouldValidate: true });
+  };
 
   const onSubmit = async (data: LeadFormValues) => {
     // Simulate API call
@@ -144,20 +155,33 @@ export function LeadForm() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-text-primary mb-3">¿Qué sabor tienes más ganas de probar? *</label>
+                  <label className="block text-sm font-bold text-text-primary mb-2">Ubicación de entrega *</label>
+                  <div className="relative">
+                    <input 
+                      {...register('deliveryLocation')}
+                      className="w-full bg-bg-light border border-border rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      placeholder="Ciudad o código postal"
+                    />
+                    <MapPin className="w-5 h-5 text-text-muted absolute left-3 top-1/2 -translate-y-1/2" />
+                  </div>
+                  {errors.deliveryLocation && <span className="text-error text-xs mt-1 block">{errors.deliveryLocation.message}</span>}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-text-primary mb-3">¿Qué sabores tienes más ganas de probar? (Selecciona varios) *</label>
                   <div className="flex flex-wrap gap-2">
                     {flavors.map(flavor => (
                       <Badge 
                         key={flavor}
-                        variant={selectedFlavor === flavor ? 'default' : 'outline'}
+                        variant={selectedFlavors.includes(flavor) ? 'default' : 'outline'}
                         className="cursor-pointer text-sm py-1 px-3 hover:scale-105 transition-transform"
-                        onClick={() => setValue('favoriteFlavor', flavor, { shouldValidate: true })}
+                        onClick={() => toggleFlavor(flavor)}
                       >
                         {flavor}
                       </Badge>
                     ))}
                   </div>
-                  {errors.favoriteFlavor && <span className="text-error text-xs mt-2 block">{errors.favoriteFlavor.message}</span>}
+                  {errors.favoriteFlavors && <span className="text-error text-xs mt-2 block">{errors.favoriteFlavors.message}</span>}
                 </div>
 
                 <div className="flex items-start gap-3 mt-4">

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Instagram, Facebook, Mail } from 'lucide-react';
+import { Instagram, Facebook, Mail, Linkedin, Youtube } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -13,12 +13,6 @@ export function Footer() {
             <p className="text-bg-light/80 text-sm mb-6">
               El mojito perfecto en 30 segundos. Artesanal, natural, sin límites.
             </p>
-            <div className="flex items-center gap-2 text-xs text-bg-light/60">
-              <span>🇫🇷 Fabricación artesanal en Lyon</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-bg-light/60 mt-1">
-              <span>🇨🇺 Receta cubana original</span>
-            </div>
           </div>
 
           <div>
@@ -42,12 +36,21 @@ export function Footer() {
 
           <div>
             <h4 className="font-accent font-semibold mb-4 text-accent">Síguenos</h4>
-            <div className="flex gap-4 mb-6">
-              <a href="https://instagram.com/flor_de_mojito" target="_blank" rel="noreferrer" className="bg-primary p-2 rounded-full hover:bg-secondary hover:text-primary transition-all text-bg-light">
-                <Instagram className="w-5 h-5" />
+            <div className="flex flex-wrap gap-3 mb-6">
+              <a href="https://www.instagram.com/flordemojito_es/" target="_blank" rel="noreferrer" className="bg-primary p-2 rounded-full hover:bg-secondary hover:text-primary transition-all text-bg-light" title="Instagram">
+                <Instagram className="w-4 h-4" />
               </a>
-              <a href="https://facebook.com/flordemojito" target="_blank" rel="noreferrer" className="bg-primary p-2 rounded-full hover:bg-secondary hover:text-primary transition-all text-bg-light">
-                <Facebook className="w-5 h-5" />
+              <a href="https://www.facebook.com/profile.php?id=61560629620932" target="_blank" rel="noreferrer" className="bg-primary p-2 rounded-full hover:bg-secondary hover:text-primary transition-all text-bg-light" title="Facebook">
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a href="https://www.tiktok.com/@flordemojito.es" target="_blank" rel="noreferrer" className="bg-primary p-2 rounded-full hover:bg-secondary hover:text-primary transition-all text-bg-light" title="TikTok">
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+              </a>
+              <a href="https://www.youtube.com/@FlordeMojitoEspa%C3%B1a" target="_blank" rel="noreferrer" className="bg-primary p-2 rounded-full hover:bg-secondary hover:text-primary transition-all text-bg-light" title="YouTube">
+                <Youtube className="w-4 h-4" />
+              </a>
+              <a href="https://www.linkedin.com/company/113251472/" target="_blank" rel="noreferrer" className="bg-primary p-2 rounded-full hover:bg-secondary hover:text-primary transition-all text-bg-light" title="LinkedIn">
+                <Linkedin className="w-4 h-4" />
               </a>
             </div>
             <h4 className="font-accent font-semibold mb-2 text-accent">Newsletter</h4>
@@ -65,12 +68,15 @@ export function Footer() {
 
         </div>
 
-        <div className="border-t border-bg-light/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-bg-light/60">
-          <p>© {new Date().getFullYear()} Flor de Mojito. Todos los derechos reservados.</p>
-          <div className="flex gap-4">
+        <div className="border-t border-bg-light/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-bg-light/60 text-center md:text-left">
+          <div>
+            <p>© {new Date().getFullYear()} Flor de Mojito. Todos los derechos reservados.</p>
+            <p className="mt-1 font-semibold">Una marca de M-CUBA</p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-4">
             <Link href="/legal/privacidad" className="hover:text-secondary">Política de Privacidad</Link>
             <Link href="/legal/terminos" className="hover:text-secondary">Aviso Legal</Link>
-            <Link href="/legal/cookies" className="hover:text-secondary">Cookies</Link>
+            <Link href="/legal/cookies" className="hover:text-secondary">Política de Cookies</Link>
           </div>
         </div>
       </div>
