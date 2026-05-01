@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Instagram, Facebook, Mail, Linkedin, Youtube } from 'lucide-react';
+import Image from 'next/image';
 
 export function Footer() {
   return (
@@ -9,7 +10,17 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           
           <div className="md:col-span-1">
-            <h3 className="font-serif text-2xl font-bold text-secondary mb-4">Flor de Mojito</h3>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative w-12 h-12 overflow-hidden rounded-full border border-bg-light/20 bg-white p-1">
+                <Image 
+                  src="/images/logo.png" 
+                  alt="Flor de Mojito Logo" 
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="font-serif text-2xl font-bold text-secondary">Flor de Mojito</h3>
+            </div>
             <p className="text-bg-light/80 text-sm mb-6">
               El mojito perfecto en 30 segundos. Artesanal, natural, sin límites.
             </p>
@@ -54,11 +65,13 @@ export function Footer() {
               </a>
             </div>
             <h4 className="font-accent font-semibold mb-2 text-accent">Newsletter</h4>
+            <p className="text-[10px] text-bg-light/40 mb-2 uppercase tracking-tighter">Suscripciones a ismar@flordemojito.es</p>
             <form className="flex gap-2">
               <input 
                 type="email" 
                 placeholder="Tu email" 
                 className="bg-bg-light/10 border border-bg-light/20 rounded-md px-3 py-2 text-sm w-full focus:outline-none focus:border-secondary"
+                required
               />
               <button type="submit" className="bg-secondary text-primary px-3 py-2 rounded-md hover:bg-secondary/80 transition-colors">
                 <Mail className="w-4 h-4" />
@@ -69,9 +82,19 @@ export function Footer() {
         </div>
 
         <div className="border-t border-bg-light/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-bg-light/60 text-center md:text-left">
-          <div>
-            <p>© {new Date().getFullYear()} Flor de Mojito. Todos los derechos reservados.</p>
-            <p className="mt-1 font-semibold">Una marca de M-CUBA</p>
+          <div className="flex items-center gap-4">
+            <div className="relative w-12 h-12 overflow-hidden rounded-full border border-bg-light/10 bg-white p-1 grayscale opacity-50">
+                <Image 
+                  src="/images/logo.png" 
+                  alt="Flor de Mojito Logo Footer" 
+                  fill
+                  className="object-contain"
+                />
+            </div>
+            <div>
+              <p>© {new Date().getFullYear()} Flor de Mojito. Todos los derechos reservados.</p>
+              <p className="mt-1 font-semibold">Una marca de M-CUBA</p>
+            </div>
           </div>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/legal/privacidad" className="hover:text-secondary">Política de Privacidad</Link>

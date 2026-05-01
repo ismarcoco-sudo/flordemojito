@@ -3,19 +3,21 @@ import Link from 'next/link';
 import { Clock, Star, WineOff } from 'lucide-react';
 import { Recipe } from '@/data/recipes';
 import { Badge } from '@/components/ui/badge';
+import Image from 'next/image';
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
     <Link href={`/recetas/${recipe.slug}`} className="group block h-full">
       <div className="bg-white rounded-2xl overflow-hidden shadow-md border border-border transition-all hover:shadow-xl hover:-translate-y-1 flex flex-col h-full">
         
-        <div className="relative aspect-video overflow-hidden bg-bg-light">
-          <img 
+        <div className="relative aspect-[4/5] overflow-hidden bg-white p-4">
+          <Image 
             src={recipe.image} 
             alt={recipe.title} 
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            fill
+            className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
           />
-          <div className="absolute top-3 left-3 flex gap-2 flex-col items-start">
+          <div className="absolute top-3 left-3 flex gap-2 flex-col items-start z-10">
             {recipe.alcoholFree && (
               <Badge variant="secondary" className="flex items-center gap-1 shadow-sm">
                 <WineOff className="w-3 h-3" /> Sin alcohol

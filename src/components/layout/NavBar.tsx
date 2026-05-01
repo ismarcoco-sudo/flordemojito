@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Menu, X, ShoppingBag } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useCart } from '@/hooks/use-cart';
+import Image from 'next/image';
 
 export function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -30,8 +31,16 @@ export function NavBar() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="text-2xl font-serif font-bold text-primary tracking-tight">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative w-10 h-10 overflow-hidden rounded-full border border-border bg-white flex-shrink-0">
+              <Image 
+                src="/images/logo.png" 
+                alt="Flor de Mojito Logo" 
+                fill
+                className="object-contain p-1 group-hover:scale-110 transition-transform"
+              />
+            </div>
+            <div className="text-2xl font-serif font-bold text-primary tracking-tight group-hover:text-secondary transition-colors">
               Flor de Mojito
             </div>
           </Link>

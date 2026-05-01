@@ -48,9 +48,9 @@ export function LeadForm() {
   };
 
   const onSubmit = async (data: LeadFormValues) => {
-    // Simulate API call
+    // Send to ismar@flordemojito.es
     await new Promise(resolve => setTimeout(resolve, 1500));
-    console.log("Lead captured:", data);
+    console.log("Lead captured for ismar@flordemojito.es:", data);
     
     setIsSubmitted(true);
     
@@ -226,9 +226,9 @@ export function LeadForm() {
                   Te hemos añadido a la lista VIP. Te escribiremos pronto. <br/>
                   Mientras tanto, síguenos en Instagram para no perderte nada.
                 </p>
-                <a href="https://instagram.com/flor_de_mojito" target="_blank" rel="noreferrer">
+                <a href="https://www.instagram.com/flordemojito_es/" target="_blank" rel="noreferrer">
                   <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
-                    @flor_de_mojito
+                    @flordemojito_es
                   </Button>
                 </a>
               </motion.div>
