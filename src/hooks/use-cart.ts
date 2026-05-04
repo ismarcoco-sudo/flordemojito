@@ -1,38 +1,50 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import {
+  CartItem,
+  CartState,
+  ShippingZone,
+  calculateShipping,
+  MAX_BOTTLES,
+} from '@/types/order';
 
-export interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
+const CART_KEY = 'flor-de-mojito-cart-v2';
+
+function notifyCartUpdate() {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('cart-updated'));
+  }
 }
 
-const CART_KEY = 'flor-de-mojito-cart';
-
-// Helper to dispatch custom event
-const notifyCartUpdate = () => {
-  window.dispatchEvent(new Event('cart-updated'));
+const defaultState: CartState = {
+  items: [],
+  zone: 'peninsula',
+  breakageInsurance: false,
 };
 
-export function useCart() {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    // Initial load
+function loadFromStorage(): CartState {
+  if (typeof window === 'undefined') return defaultState;
+  try {
     const saved = localStorage.getItem(CART_KEY);
-    if (saved) setItems(JSON.parse(saved));
+    if (saved) return { ...defaultState, ...JSON.parse(saved) };
+  } catch {
+    /* ignore */
+  }
+  return defaultState;
+}
 
-    const handleUpdate = () => {
-      const updated = localStorage.getItem(CART_KEY);
-      if (updated) setItems(JSON.parse(updated));
-    };
+export function useCart() {
+  const [state, setState] = useState<CartState>(defaultState);
+  const [isOpen, setIsOpenState] = useState(false);
 
-    const handleOpen = () => setIsOpen(true);
-    const handleClose = () => setIsOpen(false);
+  // Hydrate from localStorage on mount
+  useEffect(() => {
+    setState(loadFromStorage());
+
+    const handleUpdate = () => setState(loadFromStorage());
+    const handleOpen = () => setIsOpenState(true);
+    const handleClose = () => setIsOpenState(false);
 
     window.addEventListener('cart-updated', handleUpdate);
     window.addEventListener('open-cart', handleOpen);
@@ -45,56 +57,148 @@ export function useCart() {
     };
   }, []);
 
-  const saveItems = (newItems: CartItem[]) => {
-    setItems(newItems);
-    localStorage.setItem(CART_KEY, JSON.stringify(newItems));
+  const saveState = useCallback((newState: CartState) => {
+    setState(newState);
+    localStorage.setItem(CART_KEY, JSON.stringify(newState));
     notifyCartUpdate();
-  };
+  }, []);
 
-  const addItem = (product: any, quantity: number) => {
-    const existing = items.find(item => item.id === product.id);
-    let newItems;
-    if (existing) {
-      newItems = items.map(item => 
-        item.id === product.id 
-          ? { ...item, quantity: item.quantity + quantity }
-          : item
-      );
-    } else {
-      newItems = [...items, { ...product, quantity }];
-    }
-    saveItems(newItems);
-    setIsOpen(true);
-    window.dispatchEvent(new Event('open-cart'));
-  };
+  // ── Cart actions ─────────────────────────────────────────────────────────────
 
-  const removeItem = (id: string) => {
-    saveItems(items.filter(item => item.id !== id));
-  };
+  const addItem = useCallback(
+    (product: Omit<CartItem, 'quantity' | 'weight'>, quantity: number) => {
+      setState((prev) => {
+        const totalBottles = prev.items.reduce((s, i) => s + i.quantity, 0);
+        const canAdd = Math.min(quantity, MAX_BOTTLES - totalBottles);
+        if (canAdd <= 0) return prev;
 
-  const updateQuantity = (id: string, delta: number) => {
-    saveItems(items.map(item => {
-      if (item.id === id) {
-        return { ...item, quantity: Math.max(1, item.quantity + delta) };
+        const existing = prev.items.find((i) => i.id === product.id);
+        let newItems: CartItem[];
+        if (existing) {
+          newItems = prev.items.map((i) =>
+            i.id === product.id
+              ? { ...i, quantity: Math.min(MAX_BOTTLES, i.quantity + canAdd) }
+              : i
+          );
+        } else {
+          newItems = [
+            ...prev.items,
+            { ...product, quantity: canAdd, weight: 1.6 },
+          ];
+        }
+
+        const newState = { ...prev, items: newItems };
+        localStorage.setItem(CART_KEY, JSON.stringify(newState));
+        notifyCartUpdate();
+        return newState;
+      });
+
+      // Open cart
+      setIsOpenState(true);
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('open-cart'));
       }
-      return item;
-    }));
-  };
+    },
+    []
+  );
 
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const removeItem = useCallback((id: string) => {
+    setState((prev) => {
+      const newState = { ...prev, items: prev.items.filter((i) => i.id !== id) };
+      localStorage.setItem(CART_KEY, JSON.stringify(newState));
+      notifyCartUpdate();
+      return newState;
+    });
+  }, []);
+
+  const updateQuantity = useCallback((id: string, delta: number) => {
+    setState((prev) => {
+      const totalOthers = prev.items
+        .filter((i) => i.id !== id)
+        .reduce((s, i) => s + i.quantity, 0);
+
+      const newItems = prev.items
+        .map((i) => {
+          if (i.id !== id) return i;
+          const newQty = Math.max(1, Math.min(MAX_BOTTLES - totalOthers, i.quantity + delta));
+          return { ...i, quantity: newQty };
+        })
+        .filter((i) => i.quantity > 0);
+
+      const newState = { ...prev, items: newItems };
+      localStorage.setItem(CART_KEY, JSON.stringify(newState));
+      notifyCartUpdate();
+      return newState;
+    });
+  }, []);
+
+  const setZone = useCallback((zone: ShippingZone) => {
+    saveState({ ...state, zone });
+  }, [state, saveState]);
+
+  const setBreakageInsurance = useCallback((val: boolean) => {
+    saveState({ ...state, breakageInsurance: val });
+  }, [state, saveState]);
+
+  const clearCart = useCallback(() => {
+    const cleared = { ...defaultState };
+    setState(cleared);
+    localStorage.removeItem(CART_KEY);
+    notifyCartUpdate();
+  }, []);
+
+  const setIsOpen = useCallback((val: boolean) => {
+    setIsOpenState(val);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event(val ? 'open-cart' : 'close-cart'));
+    }
+  }, []);
+
+  // ── Derived values ───────────────────────────────────────────────────────────
+
+  const items = state.items;
+  const zone = state.zone;
+  const breakageInsurance = state.breakageInsurance;
+
+  const itemCount = items.reduce((s, i) => s + i.quantity, 0);
+  const bottleCount = itemCount; // same since all are bottles
+  const subtotal = items.reduce((s, i) => s + i.price * i.quantity, 0);
+
+  const shipping = calculateShipping(bottleCount, zone, breakageInsurance);
+  const shippingCost = shipping.total;
+  const isFreeShipping = shipping.isFree;
+  const transitTime = shipping.transitTime;
+
+  const subtotalWithIva = subtotal; // price already includes IVA display; we break it down at checkout
+  const total = parseFloat((subtotal + shippingCost).toFixed(2));
+
+  // How many bottles until free shipping (peninsula only)
+  const bottlesUntilFreeShipping =
+    zone === 'peninsula' ? Math.max(0, 2 - bottleCount) : 0;
 
   return {
+    // state
     items,
-    itemCount,
-    total,
+    zone,
+    breakageInsurance,
     isOpen,
-    setIsOpen: (val: boolean) => {
-      setIsOpen(val);
-      window.dispatchEvent(new Event(val ? 'open-cart' : 'close-cart'));
-    },
+    // computed
+    itemCount,
+    bottleCount,
+    subtotal,
+    shippingCost,
+    isFreeShipping,
+    transitTime,
+    total,
+    bottlesUntilFreeShipping,
+    shipping,
+    // actions
     addItem,
     removeItem,
     updateQuantity,
+    setZone,
+    setBreakageInsurance,
+    clearCart,
+    setIsOpen,
   };
 }
