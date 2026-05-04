@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Build line items with IVA breakdown
-    const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map((item: { name: string; price: number; quantity: number; image: string }) => ({
+    const lineItems: NonNullable<Stripe.Checkout.SessionCreateParams['line_items']> = items.map((item: { name: string; price: number; quantity: number; image: string }) => ({
       price_data: {
         currency: 'eur',
         product_data: {
