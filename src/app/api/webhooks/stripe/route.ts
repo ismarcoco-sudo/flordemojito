@@ -3,8 +3,7 @@ import Stripe from 'stripe';
 import { sendOrderConfirmationEmail, sendAdminNotificationEmail } from '@/lib/mail';
 import { Order } from '@/types/order';
 
-// @ts-expect-error - Stripe API version might not be in the current types
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2024-12-18.acacia' });
+import { stripe } from '@/lib/stripe';
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export async function POST(req: NextRequest) {
