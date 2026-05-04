@@ -25,6 +25,16 @@ export async function POST(req: NextRequest) {
 
     const orderNumber = generateOrderNumber();
     const origin = req.headers.get('origin') || 'https://flordemojito.es';
+
+    // 🧪 MODO PRUEBA / SIMULACIÓN
+    if (process.env.PAYPAL_CLIENT_ID === 'client_id_placeholder' || process.env.TEST_MODE === 'true') {
+      console.log('🧪 Simulación de pago PayPal activada');
+      return NextResponse.json({ 
+        approveUrl: `${origin}/checkout/success?order=${orderNumber}&simulated=true`,
+        simulated: true 
+      });
+    }
+
     const token = await getPayPalToken();
 
     const itemTotal = items.reduce((sum: number, item: { price: number; quantity: number }) =>

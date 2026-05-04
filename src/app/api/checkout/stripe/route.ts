@@ -14,6 +14,15 @@ export async function POST(req: NextRequest) {
     const orderNumber = generateOrderNumber();
     const origin = req.headers.get('origin') || 'https://flordemojito.es';
 
+    // 🧪 MODO PRUEBA / SIMULACIÓN
+    if (process.env.STRIPE_SECRET_KEY === 'sk_test_placeholder' || process.env.TEST_MODE === 'true') {
+      console.log('🧪 Simulación de pago Stripe activada');
+      return NextResponse.json({ 
+        url: `${origin}/checkout/success?order=${orderNumber}&simulated=true`,
+        simulated: true 
+      });
+    }
+
     // Build line items with IVA breakdown
     const lineItems: any[] = items.map((item: { name: string; price: number; quantity: number; image: string }) => ({
       price_data: {

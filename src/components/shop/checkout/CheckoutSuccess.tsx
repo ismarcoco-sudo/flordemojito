@@ -28,6 +28,11 @@ export function CheckoutSuccess({ orderNumber, checkoutData }: {
           <CheckCircle2 className="w-10 h-10 text-success" />
         </motion.div>
         <h1 className="text-3xl font-serif font-bold text-primary mb-2">¡Pedido Confirmado!</h1>
+        {typeof window !== 'undefined' && window.location.search.includes('simulated=true') && (
+          <div className="mb-4 inline-block bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider animate-pulse">
+            🧪 Modo Prueba / Pago Simulado
+          </div>
+        )}
         <p className="text-text-muted mb-4">
           Gracias, <strong>{checkoutData?.fullName?.split(' ')[0]}</strong>. Tu pedido ha sido procesado correctamente.
         </p>
