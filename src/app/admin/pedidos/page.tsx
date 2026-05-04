@@ -67,7 +67,10 @@ export default function AdminPedidosPage() {
     setLoading(false);
   }, [payFilter, shipFilter, zoneFilter]);
 
-  useEffect(() => { fetchOrders(); }, [fetchOrders]);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchOrders();
+  }, [fetchOrders]);
 
   const stats = {
     total: orders.length,

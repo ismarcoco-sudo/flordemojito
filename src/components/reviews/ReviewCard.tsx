@@ -36,7 +36,7 @@ export function ReviewCard({ review }: { review: ReviewProps }) {
         </div>
       </div>
 
-      <p className="text-text-primary mb-4 italic">"{review.text}"</p>
+      <p className="text-text-primary mb-4 italic">&ldquo;{review.text}&rdquo;</p>
       
       <div className="flex items-center justify-between mt-auto pt-4 border-t border-border">
         <div className="flex items-center gap-2">

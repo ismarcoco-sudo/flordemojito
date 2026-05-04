@@ -3,7 +3,8 @@ import Stripe from 'stripe';
 import { sendOrderConfirmationEmail, sendAdminNotificationEmail } from '@/lib/mail';
 import { Order } from '@/types/order';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-04-30' as any });
+// @ts-expect-error - Stripe API version might not be in the current types
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2024-12-18.acacia' });
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export async function POST(req: NextRequest) {
@@ -54,7 +55,9 @@ export async function POST(req: NextRequest) {
 }
 
 async function updateOrderToPaid(orderNumber: string, session: Stripe.Checkout.Session): Promise<Order | null> {
-  const store = (global as any).__ORDERS_STORE__ as Order[] | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const globalAny = global as any;
+  const store = globalAny.__ORDERS_STORE__ as Order[] | undefined;
   if (!store) return null;
 
   const idx = store.findIndex(o => o.orderNumber === orderNumber);
@@ -64,7 +67,5 @@ async function updateOrderToPaid(orderNumber: string, session: Stripe.Checkout.S
     return store[idx];
   }
 
-  // If order not found in memory (e.g. server restarted), we can't do much without a real DB
-  // But for this demo, we'll return null
   return null;
 }

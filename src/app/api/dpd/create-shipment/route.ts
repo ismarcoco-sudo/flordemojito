@@ -107,7 +107,9 @@ export async function POST(req: NextRequest) {
 }
 
 async function updateOrderWithTracking(orderNumber: string, trackingNumber: string, labelUrl: string): Promise<Order | null> {
-  const store = (global as any).__ORDERS_STORE__ as Order[] | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const globalAny = global as any;
+  const store = globalAny.__ORDERS_STORE__ as Order[] | undefined;
   if (!store) return null;
 
   const idx = store.findIndex(o => o.orderNumber === orderNumber);

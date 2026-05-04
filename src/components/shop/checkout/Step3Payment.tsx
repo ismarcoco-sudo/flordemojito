@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { CheckoutData } from '@/app/checkout/page';
 import { ShieldCheck, Truck, CreditCard, Loader2 } from 'lucide-react';
-import { IVA_RATE } from '@/types/order';
 
 type PaymentMethod = 'stripe' | 'paypal';
 

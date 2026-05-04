@@ -1,4 +1,4 @@
-export const IS_TEST_MODE = process.env.NODE_ENV !== 'production' || process.env.TEST_MODE === 'true';
+export const IS_TEST_MODE = process.env.TEST_MODE !== 'false';
 
 export const CONFIG = {
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://flordemojito.es',

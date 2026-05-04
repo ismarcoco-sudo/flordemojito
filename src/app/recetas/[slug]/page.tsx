@@ -124,7 +124,7 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ s
               <CheckCircle2 className="w-8 h-8 text-accent flex-shrink-0" />
               <div>
                 <h3 className="font-bold text-lg text-primary mb-2">Tip del Bartender</h3>
-                <p className="text-text-muted italic">"{recipe.bartenderTip}"</p>
+                <p className="text-text-muted italic">&ldquo;{recipe.bartenderTip}&rdquo;</p>
               </div>
             </div>
           </div>

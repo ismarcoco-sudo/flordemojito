@@ -22,7 +22,7 @@ export function HistorySection() {
             
             <div className="space-y-4 text-text-muted font-sans text-lg">
               <p>
-                Todo comenzó con <strong>Juan Carlos Rill Pérez</strong>, un bartender cubano que llegó a Madrid con la receta original del mojito en su maleta. Al abrir su bar frente al estadio del Rayo Vallecano, se enfrentó a un "problema": la avalancha de pedidos en los días de partido era inmanejable.
+                Todo comenzó con <strong>Juan Carlos Rill Pérez</strong>, un bartender cubano que llegó a Madrid con la receta original del mojito en su maleta. Al abrir su bar frente al estadio del Rayo Vallecano, se enfrentó a un &ldquo;problema&rdquo;: la avalancha de pedidos en los días de partido era inmanejable.
               </p>
               <p>
                 No había tiempo para exprimir limas y picar menta en cada vaso sin hacer esperar a los clientes. Así que, en su cocina, ideó una solución brillante: <strong>una base artesanal, concentrada y 100% natural</strong> que contenía toda la esencia del mojito cubano, lista para mezclar.

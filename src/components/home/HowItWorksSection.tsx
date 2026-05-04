@@ -9,17 +9,21 @@ export function HowItWorksSection() {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isActive && seconds > 0) {
-      interval = setInterval(() => {
-        setSeconds(seconds => seconds - 1);
-      }, 1000);
-    } else if (seconds === 0) {
-      setIsActive(false);
-      setTimeout(() => setSeconds(30), 2000); // Reset after 2s
-    }
+    if (!isActive) return;
+
+    const interval = setInterval(() => {
+      setSeconds(prev => {
+        if (prev <= 1) {
+          setIsActive(false);
+          setTimeout(() => setSeconds(30), 2000);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
     return () => clearInterval(interval);
-  }, [isActive, seconds]);
+  }, [isActive]);
 
   const steps = [
     { 

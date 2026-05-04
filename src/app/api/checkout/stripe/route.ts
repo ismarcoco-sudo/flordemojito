@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { calculateShipping, IVA_RATE, generateOrderNumber } from '@/types/order';
+import { generateOrderNumber } from '@/types/order';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2024-12-18.acacia' as any });
+// @ts-expect-error - Stripe API version might not be in the current types
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2024-12-18.acacia' });
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { items, zone, shippingCost, breakageInsurance, checkoutData } = body;
+    const { items, zone, shippingCost, checkoutData } = body;
 
     if (!items?.length) return NextResponse.json({ error: 'Carrito vacío' }, { status: 400 });
 
@@ -24,7 +25,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Build line items with IVA breakdown
-    const lineItems: any[] = items.map((item: { name: string; price: number; quantity: number; image: string }) => ({
+    const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map((item: { name: string; price: number; quantity: number; image: string }) => ({
       price_data: {
         currency: 'eur',
         product_data: {
@@ -45,6 +46,7 @@ export async function POST(req: NextRequest) {
           currency: 'eur',
           product_data: { name: `Envío DPD / SEUR (${zone})` },
           unit_amount: Math.round(shippingCost * 100),
+          tax_behavior: 'inclusive',
         },
         quantity: 1,
       });
@@ -57,7 +59,6 @@ export async function POST(req: NextRequest) {
       success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}&order=${orderNumber}`,
       cancel_url: `${origin}/checkout?cancelled=1`,
       customer_email: checkoutData.email,
-      shipping_address_collection: undefined,
       metadata: {
         orderNumber,
         zone,
@@ -67,9 +68,6 @@ export async function POST(req: NextRequest) {
         postalCode: checkoutData.postalCode,
         city: checkoutData.city,
         province: checkoutData.province,
-      },
-      payment_intent_data: {
-        metadata: { orderNumber, zone, fullName: checkoutData.fullName },
       },
     });
 

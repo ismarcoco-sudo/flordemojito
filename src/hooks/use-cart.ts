@@ -35,13 +35,11 @@ function loadFromStorage(): CartState {
 }
 
 export function useCart() {
-  const [state, setState] = useState<CartState>(defaultState);
+  const [state, setState] = useState<CartState>(() => loadFromStorage());
   const [isOpen, setIsOpenState] = useState(false);
 
-  // Hydrate from localStorage on mount
+  // Sync state between tabs/windows
   useEffect(() => {
-    setState(loadFromStorage());
-
     const handleUpdate = () => setState(loadFromStorage());
     const handleOpen = () => setIsOpenState(true);
     const handleClose = () => setIsOpenState(false);
@@ -57,11 +55,6 @@ export function useCart() {
     };
   }, []);
 
-  const saveState = useCallback((newState: CartState) => {
-    setState(newState);
-    localStorage.setItem(CART_KEY, JSON.stringify(newState));
-    notifyCartUpdate();
-  }, []);
 
   // ── Cart actions ─────────────────────────────────────────────────────────────
 
@@ -133,12 +126,22 @@ export function useCart() {
   }, []);
 
   const setZone = useCallback((zone: ShippingZone) => {
-    saveState({ ...state, zone });
-  }, [state, saveState]);
+    setState(prev => {
+      const newState = { ...prev, zone };
+      localStorage.setItem(CART_KEY, JSON.stringify(newState));
+      notifyCartUpdate();
+      return newState;
+    });
+  }, []);
 
   const setBreakageInsurance = useCallback((val: boolean) => {
-    saveState({ ...state, breakageInsurance: val });
-  }, [state, saveState]);
+    setState(prev => {
+      const newState = { ...prev, breakageInsurance: val };
+      localStorage.setItem(CART_KEY, JSON.stringify(newState));
+      notifyCartUpdate();
+      return newState;
+    });
+  }, []);
 
   const clearCart = useCallback(() => {
     const cleared = { ...defaultState };
@@ -169,7 +172,6 @@ export function useCart() {
   const isFreeShipping = shipping.isFree;
   const transitTime = shipping.transitTime;
 
-  const subtotalWithIva = subtotal; // price already includes IVA display; we break it down at checkout
   const total = parseFloat((subtotal + shippingCost).toFixed(2));
 
   // How many bottles until free shipping (peninsula only)
